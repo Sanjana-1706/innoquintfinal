@@ -1,6 +1,62 @@
 const byId=(id)=>document.getElementById(id);
 const qs=(s,el=document)=>el.querySelector(s);const qsa=(s,el=document)=>[...el.querySelectorAll(s)];
 
+// ===== Enhanced Navbar Animations =====
+const navbar = qs('.navbar');
+let lastScroll = 0;
+
+// Add scroll shadow effect
+window.addEventListener('scroll', () => {
+  const currentScroll = window.pageYOffset;
+  
+  // Add shadow on scroll
+  if (currentScroll > 50) {
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+  
+  lastScroll = currentScroll;
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    const href = this.getAttribute('href');
+    if (href !== '#' && document.querySelector(href)) {
+      e.preventDefault();
+      document.querySelector(href).scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  });
+});
+
+// Add loading state to buttons
+qsa('button[type="submit"], .btn-primary').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    if (this.form && !this.form.checkValidity()) {
+      return;
+    }
+    this.classList.add('loading');
+    setTimeout(() => {
+      this.classList.remove('loading');
+    }, 2000);
+  });
+});
+
+// Enhanced form field interactions
+qsa('.field input, .field textarea, .field select').forEach(field => {
+  field.addEventListener('focus', function() {
+    this.parentElement.classList.add('focused');
+  });
+  
+  field.addEventListener('blur', function() {
+    this.parentElement.classList.remove('focused');
+  });
+});
+
 const navToggle=qs('.nav-toggle');
 const navLinks=qs('#nav-links');
 if(navToggle&&navLinks){
@@ -497,13 +553,14 @@ if(roleToggleDd){
   });
 }
 
-if(loginLinkDd){
-  loginLinkDd.addEventListener('click',(e)=>{
-    e.preventDefault();
-    const isOpen=loginNav.classList.contains('open');
-    isOpen?closeDd():openDd();
-  });
-}
+// Disabled - login link now redirects to login.html page
+// if(loginLinkDd){
+//   loginLinkDd.addEventListener('click',(e)=>{
+//     e.preventDefault();
+//     const isOpen=loginNav.classList.contains('open');
+//     isOpen?closeDd():openDd();
+//   });
+// }
 
 // auth mode switching
 authTabs.forEach(tab=>{
@@ -687,7 +744,8 @@ if(roleToggle){
   });
 }
 
-if(loginLink){loginLink.addEventListener('click',(e)=>{e.preventDefault();openModal();});}
+// Disabled - login link now redirects to login.html page
+// if(loginLink){loginLink.addEventListener('click',(e)=>{e.preventDefault();openModal();});}
 closeEls.forEach(el=>el.addEventListener('click',closeModal));
 if(modal){modal.addEventListener('click',(e)=>{if(e.target===modal)closeModal();});}
 document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closeModal();});

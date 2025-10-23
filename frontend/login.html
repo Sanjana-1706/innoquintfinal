@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login - EVENT NEST</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    .login-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+    .login-container {
+      width: 100%;
+      max-width: 480px;
+      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
+      backdrop-filter: blur(10px) saturate(120%);
+      -webkit-backdrop-filter: blur(10px) saturate(120%);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,.35);
+    }
+    .login-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .login-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      margin: 0 0 0.5rem 0;
+      background: linear-gradient(90deg, #FF69B4, #BF00FF, #FFD700);
+      background-size: 200% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .login-header p {
+      color: var(--muted);
+      margin: 0;
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      color: var(--soft-pink);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <main class="login-page">
+    <div class="login-container">
+      <a href="index.html" class="back-link">← Back to Home</a>
+      
+      <div class="login-header">
+        <h1>Welcome Back</h1>
+        <p>Login to EVENT NEST</p>
+      </div>
+
+      <div class="login-select-dd" id="login-select">
+        <div class="auth-modes" role="tablist" aria-label="Auth Modes">
+          <button class="auth-tab active" data-auth-mode="login" role="tab" aria-selected="true">Login</button>
+          <button class="auth-tab" data-auth-mode="signup" role="tab" aria-selected="false">Sign Up</button>
+        </div>
+        <h3>Choose Role</h3>
+        <div class="role-actions">
+          <button class="btn btn-primary" data-role="organizer">Login as Organizer</button>
+          <button class="btn btn-secondary" data-role="participant">Login as Participant</button>
+        </div>
+      </div>
+
+      <form class="login-form" id="login-form" hidden novalidate>
+        <p class="role-hint">Role: <button type="button" class="role-toggle" id="role-toggle"><span id="role-label">Organizer</span></button></p>
+        
+        <div id="signup-only" class="signup-only" hidden>
+          <div class="field">
+            <label for="name">Full Name</label>
+            <input id="name" name="name" type="text" placeholder="Enter your full name">
+          </div>
+          <div class="field">
+            <label for="address">Address</label>
+            <input id="address" name="address" type="text" placeholder="Enter your address">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="email">Email Address</label>
+          <input id="email" name="email" type="email" required placeholder="Enter your email">
+        </div>
+
+        <div class="field password-field">
+          <label for="password">Password</label>
+          <div class="password-wrap">
+            <input id="password" name="password" type="password" required minlength="6" placeholder="Enter your password">
+            <button type="button" class="pw-toggle" id="pw-toggle" aria-label="Show password">👁️</button>
+          </div>
+        </div>
+
+        <div class="login-row">
+          <label class="remember"><input type="checkbox" id="remember"> Remember me</label>
+          <a class="forgot" href="#">Forgot password?</a>
+        </div>
+
+        <div class="divider"><span>Or continue with</span></div>
+        <button type="button" class="btn btn-ghost wide" id="google-btn">Continue with Google</button>
+
+        <p class="switch-auth" id="switch-auth-text">New to EventNest? <button type="button" class="link" id="go-signup">Create Account</button></p>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" id="back-to-select">Back to selection</button>
+          <button type="submit" class="btn btn-primary" id="submit-btn">Continue</button>
+        </div>
+
+        <div class="switch-role-wrap">
+          <button type="button" class="btn btn-secondary wide" id="switch-role-btn">Switch Role (Organizer ⇄ Participant)</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script src="login.js"></script>
+</body>
+</html>
